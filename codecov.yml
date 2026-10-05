@@ -1,0 +1,15 @@
+coverage:
+  status:
+    project:
+      default:
+        target: auto
+        threshold: 2%
+        informational: true
+    patch:
+      default:
+        target: auto
+        threshold: 10%
+        informational: true
+ignore:
+  - "spec/**"
+  - "assets/**"

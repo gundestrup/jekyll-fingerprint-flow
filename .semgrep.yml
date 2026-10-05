@@ -1,0 +1,25 @@
+rules:
+  - id: ruby-redos-string-scan
+    languages: [ruby]
+    severity: WARNING
+    message: "String#scan with unanchored polynomial regex may cause ReDoS"
+    patterns:
+      - pattern: $X.scan($REGEX)
+      - pattern-not-regex: 'scanner\.scan\('
+      - pattern-not: $X.scan("$LITERAL")
+    options:
+      symbolic_propagation: true
+    metavariable-analysis:
+      analyzer: redos
+      metavariable: $REGEX
+  - id: ruby-end-anchored-run-strip
+    languages: [ruby]
+    severity: WARNING
+    message: "sub/gsub with end-anchored run rescans per position"
+    patterns:
+      - pattern-either:
+          - pattern: $X.sub($RE, ...)
+          - pattern: $X.gsub($RE, ...)
+      - metavariable-regex:
+          metavariable: $RE
+          regex: '.*(\+\\z|\+\$).*'

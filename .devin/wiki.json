@@ -1,0 +1,31 @@
+{
+  "repo_notes": [
+    { "content": "Jekyll 4 plugin (Ruby >= 3.3): per-site :site, :post_write cache busting for supported local URL attributes in generated .html/.htm. Priority defaults to 12 and is configurable from 11 through 19." },
+    { "content": "Architecture: HtmlTagScanner + HtmlTagParser find exact source spans, skipping comments and raw-text contents; Rewriter transforms src/href/xlink:href/srcset/poster; SrcsetRewriter preserves data URLs; UrlTagger resolves and confines targets; Hasher computes content MD5 with a build-local memo." },
+    { "content": "Design invariants: ?v=<md5(content)[0,10]> is derived from output bytes; hash each path once per build, never persist metadata-keyed digests; reject traversal and symlink targets outside site.dest; skip symlinked HTML outputs; preserve source bytes except changed attribute values." },
+    { "content": "Scope: HTML attribute URLs only. CSS url()/@import, inline CSS, JavaScript runtime fetch/import, and JSON/XML references are not rewritten. CSS and compressor plugin integration is described in README; `fingerprint_flow.priority` defaults to 12 (11..19); the pipeline is normal processing 20 -> fingerprint -> compression 10." },
+    { "content": "See AGENTS.md / README.md for config, supported attributes, limitations, gates (rubocop/rspec/semgrep/bundler-audit), and the trusted-publishing release workflow." }
+  ],
+  "pages": [
+    {
+      "title": "Architecture Overview",
+      "purpose": "Per-site priority dispatcher: normal processors (20) -> HTML fingerprinting (11..19, default 12) -> compression (0..10, default 10)",
+      "page_notes": [{ "content": "Include Mermaid diagram: Jekyll post_write -> HtmlTagScanner -> Rewriter -> UrlTagger -> Hasher -> updated HTML -> default-priority compressor" }]
+    },
+    {
+      "title": "Tagging Rules",
+      "purpose": "Supported HTML extensions and URL attributes, srcset grammar, local base href, query/fragment handling, skips and scope boundaries",
+      "parent": "Architecture Overview"
+    },
+    {
+      "title": "Caching and Statelessness",
+      "purpose": "Content-derived correctness and build-local memoization; why persistent mtime/size cache keys are unsafe",
+      "parent": "Architecture Overview"
+    },
+    {
+      "title": "Configuration and Release",
+      "purpose": "fingerprint_flow config keys, quality gates, and tag-push release workflow via OIDC trusted publishing",
+      "parent": "Architecture Overview"
+    }
+  ]
+}

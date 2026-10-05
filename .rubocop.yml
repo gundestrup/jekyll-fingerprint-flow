@@ -1,0 +1,22 @@
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.3
+
+Style/Documentation:
+  Enabled: false
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Layout/LineLength:
+  Max: 100
+
+# Bundler-style hyphenated gem entrypoint
+Naming/FileName:
+  Exclude:
+    - lib/jekyll-fingerprint-flow.rb
+
+Metrics/BlockLength:
+  Exclude:
+    - spec/**/*

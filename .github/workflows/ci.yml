@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test:
+    name: Ruby ${{ matrix.ruby }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write
+    strategy:
+      fail-fast: false
+      matrix:
+        ruby: ["3.3", "3.4"]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@984c0c890880bbf811283d6f09c4607c62d210a4 # v1.323.0
+        with:
+          ruby-version: ${{ matrix.ruby }}
+          bundler-cache: true
+
+      - name: Install Semgrep
+        run: |
+          pip3 install --only-binary :all: "semgrep==1.176.0"
+
+      - name: Audit Ruby dependencies
+        run: bundle exec bundle-audit check --update
+
+      - name: Run checks
+        run: bundle exec rake ci
+
+      - name: Upload coverage to Codecov
+        if: matrix.ruby == '3.4'
+        uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
+        with:
+          files: coverage/coverage.xml
+          disable_search: true
+          use_oidc: true
+          fail_ci_if_error: false

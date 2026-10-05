@@ -1,0 +1,9 @@
+/.bundle/
+/pkg/
+/vendor/
+/tmp/
+/coverage/
+/.jekyll-cache/
+/spec/fixtures/**/_site/
+*.gem
+.DS_Store
