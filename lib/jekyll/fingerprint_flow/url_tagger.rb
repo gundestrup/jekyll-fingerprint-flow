@@ -26,12 +26,12 @@ module Jekyll
 
       # Returns the rewritten URL, or nil when the URL must not be touched.
       def tag(url, html_dir:, base_href: nil)
-        parts = split(url.strip) or return
+        parts = split(url.strip) || return
         path, query, frag = parts
-        decoded_path = unescape(path) or return
+        decoded_path = unescape(path) || return
         return unless fingerprintable?(decoded_path)
 
-        resolved = resolve(decoded_path, html_dir, base_href) or return
+        resolved = resolve(decoded_path, html_dir, base_href) || return
         merge(path, query, frag, @hasher.tag(resolved))
       end
 
@@ -102,7 +102,7 @@ module Jekyll
         return html_dir unless base_href
 
         base_path = base_href.strip.partition("#").first.partition("?").first
-        decoded_base = unescape(base_path) or return
+        decoded_base = unescape(base_path) || return
         return html_dir if decoded_base.empty?
 
         base_target = base_target(decoded_base, html_dir)
