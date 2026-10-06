@@ -51,7 +51,7 @@ task :package do
   spec = Gem::Specification.load(GEMSPEC)
   file = Gem::Package.build(spec)
   contents = Gem::Package.new(file).contents
-  required = %w[LICENSE.txt README.md CHANGELOG.md lib/jekyll-fingerprint-flow.rb
+  required = %w[LICENSE README.md CHANGELOG.md lib/jekyll-fingerprint-flow.rb
                 lib/jekyll/fingerprint_flow.rb
                 lib/jekyll/fingerprint_flow/html_document_rewriter.rb
                 lib/jekyll/fingerprint_flow/html_tag_parser.rb
