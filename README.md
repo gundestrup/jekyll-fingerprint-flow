@@ -10,7 +10,7 @@
 [![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)](LICENSE)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/gundestrup/jekyll-fingerprint-flow)
 [![CodeFactor](https://www.codefactor.io/repository/github/gundestrup/jekyll-fingerprint-flow/badge)](https://www.codefactor.io/repository/github/gundestrup/jekyll-fingerprint-flow)
-[![Semgrep CE](https://img.shields.io/badge/Semgrep_CE-security-success)](https://github.com/gundestrup/jekyll-fingerprint-flow/security/code-scanning)
+[![Semgrep](https://img.shields.io/badge/Semgrep-security-success)](https://github.com/gundestrup/jekyll-fingerprint-flow/security/code-scanning)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=gundestrup_jekyll-fingerprint-flow&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=gundestrup_jekyll-fingerprint-flow)
 
 Drop-in content-hash cache busting for Jekyll. After the site is written,
