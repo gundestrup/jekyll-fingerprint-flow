@@ -2,6 +2,8 @@
 
 ## [Unreleased]
 
+## [0.1.1] - 2026-10-06
+
 ### Fixed
 
 - `LICENSE` now contains the verbatim AGPL-3.0 text (was a stub);
