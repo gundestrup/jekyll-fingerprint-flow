@@ -46,3 +46,18 @@ jobs:
           disable_search: true
           use_oidc: true
           fail_ci_if_error: false
+
+  semgrep:
+    name: Semgrep security scan
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Install Semgrep
+        run: pip3 install --only-binary ":all:" semgrep==1.176.0
+
+      - name: Run Semgrep security scan
+        env:
+          SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
+        run: semgrep ci

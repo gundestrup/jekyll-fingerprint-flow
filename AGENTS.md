@@ -8,7 +8,10 @@ asset URLs in generated HTML, including markup emitted by themes and plugins.
 
 - `bundle install`
 - `bundle exec rake quick` — rubocop + rspec (fast loop)
-- `bundle exec rake ci` — full gate: + bundler-audit, semgrep, package check
+- `bundle exec rake ci` — full gate: + bundler-audit, semgrep (local
+  `.semgrep.yml` rules), package check
+- CI also runs a separate `semgrep ci` job — org policy on the Semgrep
+  AppSec Platform (`SEMGREP_APP_TOKEN` repo secret)
 - `bundle exec rspec` — specs only
 - Release: `rake "version:bump[patch|minor|major]"` + dated CHANGELOG
   entry, then tag `vX.Y.Z` and push — CI publishes via OIDC.

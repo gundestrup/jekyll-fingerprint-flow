@@ -146,7 +146,7 @@ fingerprinting, then compression (0–10).
 ```bash
 bundle install
 bundle exec rake quick   # rubocop + rspec
-bundle exec rake ci      # + bundler-audit, semgrep, package check
+bundle exec rake ci      # + bundler-audit, semgrep (local rules), package check
 ```
 
 Release: `bundle exec rake "version:bump[patch]"`, add a dated CHANGELOG
