@@ -2,6 +2,12 @@
 
 ## [Unreleased]
 
+### Fixed
+
+- `LICENSE` now contains the verbatim AGPL-3.0 text (was a stub);
+  README license links updated for the `LICENSE.txt` rename and the
+  gemspec/package-check lists follow the new name.
+
 ## [0.1.0] - 2026-10-06
 
 - `Jekyll::FingerprintFlow::Interface.to_h` — the config surface

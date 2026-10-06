@@ -7,7 +7,7 @@
 [![Ruby](https://img.shields.io/badge/ruby-%E2%89%A5%203.3-red.svg)](https://www.ruby-lang.org/)
 [![Jekyll](https://img.shields.io/badge/jekyll-4.x-blue.svg)](https://jekyllrb.com/)
 [![Release](https://img.shields.io/github/v/tag/gundestrup/jekyll-fingerprint-flow)](https://github.com/gundestrup/jekyll-fingerprint-flow/tags)
-[![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)](LICENSE.txt)
+[![License: AGPL v3](https://img.shields.io/badge/license-AGPL--3.0--or--later-blue.svg)](LICENSE)
 [![Ask DeepWiki](https://deepwiki.com/badge.svg)](https://deepwiki.com/gundestrup/jekyll-fingerprint-flow)
 [![CodeFactor](https://www.codefactor.io/repository/github/gundestrup/jekyll-fingerprint-flow/badge)](https://www.codefactor.io/repository/github/gundestrup/jekyll-fingerprint-flow)
 [![Semgrep CE](https://img.shields.io/badge/Semgrep_CE-security-success)](https://github.com/gundestrup/jekyll-fingerprint-flow/security/code-scanning)
@@ -156,4 +156,5 @@ publishes to RubyGems via OIDC trusted publishing.
 
 ## License
 
-AGPL-3.0-or-later — see [LICENSE.txt](LICENSE.txt).
+Copyright (C) 2026 Svend Gundestrup.
+AGPL-3.0-or-later — see [LICENSE](LICENSE).
