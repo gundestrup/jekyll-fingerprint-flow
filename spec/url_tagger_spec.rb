@@ -134,7 +134,8 @@ RSpec.describe Jekyll::FingerprintFlow::UrlTagger do
     with_site_dir do |dest|
       File.write(File.join(dest, "x.css"), "x")
       tagger = tagger_for(dest)
-      allow_any_instance_of(URI::RFC3986_Parser).to receive(:unescape).and_raise(ArgumentError)
+      allow_any_instance_of(URI::DEFAULT_PARSER.class)
+        .to receive(:unescape).and_raise(ArgumentError)
       expect(tagger.tag("/x.css", html_dir: dest)).to be_nil
     end
   end
