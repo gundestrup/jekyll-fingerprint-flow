@@ -23,7 +23,7 @@ Gem::Specification.new do |spec|
   }
 
   spec.required_ruby_version = ">= 3.3.0"
-  spec.files = Dir["lib/**/*", "README.md", "LICENSE.txt", "CHANGELOG.md"]
+  spec.files = Dir["lib/**/*", "README.md", "LICENSE.txt", "CHANGELOG.md", "interface.yml"]
   spec.require_paths = ["lib"]
 
   spec.add_dependency "jekyll", ">= 4.0", "< 5.0"

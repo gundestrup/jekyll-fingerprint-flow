@@ -1,5 +1,15 @@
 # Changelog
 
+## [Unreleased]
+
+### Added
+
+- `Jekyll::FingerprintFlow::Interface.to_h` — the config surface
+  (`fingerprint_flow` keys plus the `priority:` range) derived from
+  `DEFAULTS` and the code's actual `site.config` reads, serialized to a
+  committed `interface.yml` by `rake interface`;
+  `spec/interface_spec.rb` pins manifest freshness and completeness.
+
 ## [0.1.0] - 2026-10-04
 
 - Per-site `:site, :post_write` dispatcher that content-tags supported local

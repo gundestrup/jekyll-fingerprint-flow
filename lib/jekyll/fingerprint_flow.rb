@@ -9,6 +9,7 @@ require "jekyll/fingerprint_flow/html_tag_scanner"
 require "jekyll/fingerprint_flow/srcset_rewriter"
 require "jekyll/fingerprint_flow/html_document_rewriter"
 require "jekyll/fingerprint_flow/rewriter"
+require "jekyll/fingerprint_flow/interface"
 
 module Jekyll
   module FingerprintFlow
