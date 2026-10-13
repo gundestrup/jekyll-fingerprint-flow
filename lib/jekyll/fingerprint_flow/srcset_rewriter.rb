@@ -39,10 +39,11 @@ module Jekyll
       end
 
       def strip_trailing_commas(url, finish)
-        commas = url[/,+\z/]
-        return [url, finish, false] unless commas
+        commas = 0
+        commas += 1 while commas < url.bytesize && url.getbyte(url.bytesize - 1 - commas) == 44
+        return [url, finish, false] if commas.zero?
 
-        [url.byteslice(0, url.bytesize - commas.bytesize), finish - commas.bytesize, true]
+        [url.byteslice(0, url.bytesize - commas), finish - commas, true]
       end
 
       def skip_url(value, position)
