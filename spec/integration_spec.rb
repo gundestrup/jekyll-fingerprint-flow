@@ -2,27 +2,39 @@
 
 require "spec_helper"
 
+FIXTURE_SITE = File.expand_path("fixtures/site", __dir__).freeze
 RSpec.describe "post_write integration" do
-  it "fingerprints asset references in a real Jekyll build" do
-    Dir.mktmpdir("fingerprint-flow-build") do |dest|
-      site = Jekyll::Site.new(Jekyll.configuration(
-                                "source" => File.expand_path("fixtures/site", __dir__),
-                                "destination" => dest
-                              ))
-      site.process
+  # Re-expresses the committed fixture site as a harness config + files pair
+  # so single-build examples run through jekyll_build. Rebuild examples
+  # below keep their own scaffolding — the harness builds each site in a
+  # fresh temporary directory.
+  def fixture_site
+    files = {
+      "index.html" => File.read(File.join(FIXTURE_SITE, "index.html")),
+      "assets" => {
+        "site.css" => File.read(File.join(FIXTURE_SITE, "assets/site.css")),
+        "app.js" => File.read(File.join(FIXTURE_SITE, "assets/app.js"))
+      }
+    }
+    config = YAML.load_file(File.join(FIXTURE_SITE, "_config.yml"))
+    [config, files]
+  end
 
-      html = File.read(File.join(dest, "index.html"))
+  it "fingerprints asset references in a real Jekyll build" do
+    config, files = fixture_site
+    jekyll_build(config: config, files: files) do |_site, output_files|
+      html = output_files.read("index.html")
       expect(html).to match(%r{/assets/site\.css\?v=[0-9a-f]{10}})
       expect(html).to match(%r{/assets/app\.js\?v=[0-9a-f]{10}})
       expect(html).to include('href="/about/"')
       expect(html).to include('src="https://cdn.example.com/keep.js"')
-      expect(File).to exist(File.join(dest, "assets/site.css"))
+      expect(File).to exist(output_files.path("assets/site.css"))
     end
   end
 
   it "emits a new tag for a changed asset when the site is built again" do
     Dir.mktmpdir("fingerprint-flow-src") do |src|
-      FileUtils.cp_r(File.join(File.expand_path("fixtures/site", __dir__), "."), src)
+      FileUtils.cp_r(File.join(FIXTURE_SITE, "."), src)
       Dir.mktmpdir("fingerprint-flow-dest") do |dest|
         build = lambda do
           Jekyll::Site.new(Jekyll.configuration(
@@ -45,7 +57,7 @@ RSpec.describe "post_write integration" do
 
   it "keeps the same tag for an unchanged asset when the site is built again" do
     Dir.mktmpdir("fingerprint-flow-src") do |src|
-      FileUtils.cp_r(File.join(File.expand_path("fixtures/site", __dir__), "."), src)
+      FileUtils.cp_r(File.join(FIXTURE_SITE, "."), src)
       Dir.mktmpdir("fingerprint-flow-dest") do |dest|
         build = lambda do
           Jekyll::Site.new(Jekyll.configuration(
@@ -76,28 +88,25 @@ RSpec.describe "post_write integration" do
   end
 
   it "uses the configured priority for this site's build" do
-    Dir.mktmpdir("fingerprint-flow-priority") do |dest|
-      site = Jekyll::Site.new(Jekyll.configuration(
-                                "source" => File.expand_path("fixtures/site", __dir__),
-                                "destination" => dest,
-                                "fingerprint_flow" => { "priority" => 17 }
-                              ))
-      observed = false
-      probe = proc do |built_site|
-        observed = File.read(File.join(built_site.dest, "index.html")).include?("?v=")
-      end
-      hooks = Jekyll::Hooks.instance_variable_get(:@registry).fetch(:site).fetch(:post_write)
-      priorities = Jekyll::Hooks.instance_variable_get(:@hook_priority)
-      Jekyll::Hooks.register(:site, :post_write, priority: 16, &probe)
+    observed = false
+    probe = proc do |built_site|
+      observed = File.read(File.join(built_site.dest, "index.html")).include?("?v=")
+    end
+    hooks = Jekyll::Hooks.instance_variable_get(:@registry).fetch(:site).fetch(:post_write)
+    priorities = Jekyll::Hooks.instance_variable_get(:@hook_priority)
+    Jekyll::Hooks.register(:site, :post_write, priority: 16, &probe)
 
-      begin
-        site.process
-      ensure
-        hooks.delete(probe)
-        priorities.delete(probe)
+    config, files = fixture_site
+    begin
+      jekyll_build(
+        config: config.merge("fingerprint_flow" => { "priority" => 17 }),
+        files: files
+      ) do |_site, _output_files|
+        expect(observed).to be(true)
       end
-
-      expect(observed).to be(true)
+    ensure
+      hooks.delete(probe)
+      priorities.delete(probe)
     end
   end
 end

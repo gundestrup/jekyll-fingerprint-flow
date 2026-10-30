@@ -17,8 +17,13 @@ unless ENV["COVERAGE"] == "false"
 end
 
 require "jekyll-fingerprint-flow"
+require "jekyll_test_harness"
 require "tmpdir"
 require "fileutils"
+
+# Install the Jekyll integration harness so specs can build real sites
+# with `jekyll_build` instead of hand-rolled tmpdir setup.
+JekyllTestHarness.install!(framework: :rspec)
 
 # A throwaway _site tree plus the minimal site stub the rewriter needs
 # (dest + baseurl + config hash). Real hashing, real files.
