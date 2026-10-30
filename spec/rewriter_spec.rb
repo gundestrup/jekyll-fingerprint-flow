@@ -318,6 +318,18 @@ RSpec.describe Jekyll::FingerprintFlow::Rewriter do
     end
   end
 
+  it "rewrites .htm files as well as .html" do
+    with_site_dir do |dest|
+      File.write(File.join(dest, "app.js"), "js")
+      page = File.join(dest, "index.htm")
+      File.write(page, '<script src="/app.js"></script>')
+
+      rewriter_for(dest).run
+
+      expect(File.read(page)).to match(%r{src="/app\.js\?v=[0-9a-f]{10}"})
+    end
+  end
+
   it "does not follow an HTML symlink outside the destination" do
     with_site_dir do |dest|
       root = File.dirname(dest)

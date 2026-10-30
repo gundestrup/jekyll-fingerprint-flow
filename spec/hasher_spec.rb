@@ -13,6 +13,20 @@ RSpec.describe Jekyll::FingerprintFlow::Hasher do
     end
   end
 
+  it "hashes each file only once per build, even if it changes mid-build" do
+    with_site_dir do |dest|
+      path = File.join(dest, "app.js")
+      File.write(path, "v1")
+      hasher = described_class.new
+      first = hasher.tag(path)
+
+      File.write(path, "v2-changed")
+
+      expect(hasher.tag(path)).to eq(first)
+      expect(described_class.new.tag(path)).not_to eq(first)
+    end
+  end
+
   it "recomputes a changed file in the next build even if size and mtime match" do
     with_site_dir do |dest|
       path = File.join(dest, "app.js")
