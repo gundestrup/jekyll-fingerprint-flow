@@ -82,3 +82,8 @@ task quick: %i[rubocop spec]
 task ci: %i[rubocop bundle:audit semgrep spec version:check package]
 task "version:pre_release" => %i[ci version:check_changelog]
 task default: :quick
+
+desc "Generate docs/assets demo captures (needs Chrome, ffmpeg, img2webp)"
+task "docs:demo" do
+  sh "scripts/docs-demo.sh"
+end

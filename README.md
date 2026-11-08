@@ -27,6 +27,19 @@ No template changes or asset-pipeline tags are needed. The post-write pass
 covers matching URLs emitted by layouts, themes, and other plugins, without
 mistaking comments, script text, or unrelated `data-*` attributes for markup.
 
+<!-- markdownlint-disable MD033 -->
+<picture>
+  <source
+    srcset="docs/assets/jekyll-fingerprint-flow-demo.avif"
+    type="image/avif">
+  <source
+    srcset="docs/assets/jekyll-fingerprint-flow-demo.webp"
+    type="image/webp">
+  <img src="docs/assets/jekyll-fingerprint-flow-demo.png"
+       alt="jekyll-fingerprint-flow demo">
+</picture>
+<!-- markdownlint-enable MD033 -->
+
 ## Why
 
 Browsers cache static assets aggressively. When a site serves assets with a
