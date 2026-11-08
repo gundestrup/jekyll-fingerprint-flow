@@ -4,6 +4,10 @@
 
 ### Changed
 
+- In-range gem updates: `addressable` 2.9.1 → 2.9.2,
+  `sass-embedded` 1.107.0 → 1.108.1, `rspec-*` 3.13.x patches;
+  `BUNDLED WITH` 4.0.21 → 4.0.24.
+- CI: `ruby/setup-ruby` pin bumped v1.335.0 → v1.338.0.
 - CI: Semgrep bumped to 1.182.0 — `ci.yml` and `release.yml` install it with `pipx install semgrep==1.182.0`, and the `semgrep ci` job runs the digest-pinned `semgrep/semgrep:1.182.0` container image (replacing the earlier `pip3 install semgrep==1.176.0` pins; the interim hashed `requirements-ci.txt` lockfile was dropped). Added `.github/dependabot.yml` covering github-actions and bundler updates.
 
 ### Added
