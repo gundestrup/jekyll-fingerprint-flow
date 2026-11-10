@@ -10,6 +10,8 @@
   animated AVIF + WebP + static PNG (headless Chrome + ffmpeg + img2webp;
   build-host tools), embedded in README via `<picture>`. Examples are
   schematic, not generated from a live Jekyll build.
+- Specs covering `.htm` output files and per-build hash memoization
+  (a file changed mid-build keeps its first tag; the next build re-hashes).
 
 ### Changed
 
@@ -17,14 +19,15 @@
   `sass-embedded` 1.107.0 → 1.108.1, `rspec-*` 3.13.x patches;
   `BUNDLED WITH` 4.0.21 → 4.0.24.
 - CI: `ruby/setup-ruby` pin bumped v1.335.0 → v1.338.0.
-- CI: Semgrep bumped to 1.182.0 — `ci.yml` and `release.yml` install it with `pipx install semgrep==1.182.0`, and the `semgrep ci` job runs the digest-pinned `semgrep/semgrep:1.182.0` container image (replacing the earlier `pip3 install semgrep==1.176.0` pins; the interim hashed `requirements-ci.txt` lockfile was dropped). Added `.github/dependabot.yml` covering github-actions and bundler updates.
+- CI: Semgrep bumped to 1.182.0 — `ci.yml` and `release.yml` install it
+  with `pipx install semgrep==1.182.0`, and the `semgrep ci` job runs the
+  digest-pinned `semgrep/semgrep:1.182.0` container image (replacing the
+  earlier `pip3 install semgrep==1.176.0` pins; the interim hashed
+  `requirements-ci.txt` lockfile was dropped). Added
+  `.github/dependabot.yml` covering github-actions and bundler updates.
 
 - Gemspec `description` rewritten as an RDoc `==`-headed blurb so
   rubygems.org renders it as markup instead of a single plain paragraph.
-
-### Added
-
-- Specs covering `.htm` output files and per-build hash memoization (a file changed mid-build keeps its first tag; the next build re-hashes).
 
 ## [0.1.1] - 2026-10-06
 
