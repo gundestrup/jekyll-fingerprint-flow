@@ -8,10 +8,19 @@ Gem::Specification.new do |spec|
   spec.authors = ["Svend Gundestrup"]
   spec.email = ["svend@gundestrup.dk"]
   spec.summary = "Content-hash URL cache busting for Jekyll HTML output"
-  spec.description = "A zero-config Jekyll plugin that content-tags supported local asset " \
-                     "URLs in generated .html/.htm attributes at post_write. Covers matching " \
-                     "markup emitted by themes and plugins without template changes. CSS/JS " \
-                     "runtime references and HTTP cache headers are outside its scope."
+  # NOTE: rubygems.org renders the description through RDoc::Markup only
+  # when it starts with an == heading at column 0 — keep the heredoc
+  # content flush-left or the page renders as one plain <p>.
+  spec.description = <<~DESC
+    == Content-hash cache busting for Jekyll
+
+    A zero-config plugin that content-tags supported local asset URLs in
+    generated .html/.htm attributes at post_write — covering markup
+    emitted by themes and plugins without template changes.
+
+    CSS/JS runtime references and HTTP cache headers are outside its
+    scope.
+  DESC
   spec.homepage = "https://github.com/gundestrup/jekyll-fingerprint-flow"
   spec.license = "AGPL-3.0-or-later"
   spec.metadata = {
